@@ -6,7 +6,9 @@
     "outDir": "./dist/out-tsc",
     "forceConsistentCasingInFileNames": true,
     "strict": true,
+    "strictPropertyInitialization": false, //Nuestra
     "noImplicitOverride": true,
+    "noImplicitAny": false, //Nuestra
     "noPropertyAccessFromIndexSignature": true,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
