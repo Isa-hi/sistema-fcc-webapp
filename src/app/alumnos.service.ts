@@ -134,6 +134,14 @@ export class AlumnosService {
 
   //Servicio para obtener un alumno por ID
   public getAlumnoByID(idUser: number){
-    return this.http.get<any>(`${environment.url_api}/alumnos/${idUser}`, httpOptions);
+    return this.http.get<any>(`${environment.url_api}/alumnos/?id=${idUser}`, httpOptions);
   }
+
+  //Post para actualizar alumno
+  public editarAlumno(data: any): Observable <any>{
+    var token = this.facadeService.getSessionToken();
+    var headers = new HttpHeaders({'Content-type': 'application/json', 'Authorization': 'Bearer '+token});
+    return this.http.put<any>(`${environment.url_api}/alumnos-edit/${data.id}/`, data, {headers: headers});
+  }
+
 }
