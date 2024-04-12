@@ -17,6 +17,9 @@ import { RegistroAdminComponent } from './partials/registro-admin/registro-admin
 import { RegistroAlumnosComponent } from './partials/registro-alumnos/registro-alumnos.component';
 import { RegistroMaestrosComponent } from './partials/registro-maestros/registro-maestros.component';
 
+//Import location
+import { Location } from '@angular/common';
+
 //Matradios
 import {MatRadioModule} from '@angular/material/radio';
 import {MatInputModule} from '@angular/material/input';
@@ -69,7 +72,7 @@ import { MaestrosScreenComponent } from './screens/maestros-screen/maestros-scre
     HttpClientModule
 
   ],
-  providers: [],
+  providers: [Location],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

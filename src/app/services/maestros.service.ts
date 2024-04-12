@@ -121,4 +121,16 @@ export class MaestrosService {
     return this.http.get<any>(`${environment.url_api}/lista-maestros/`, {headers: headers});
   }
 
+  //Obtener maestro por ID
+  public getMaestroByID(idUser: number){
+    return this.http.get<any>(`${environment.url_api}/maestros/?id=${idUser}`, httpOptions);
+  }
+
+  //Put para actualizar maestro
+  public editarMaestro(data: any): Observable <any>{
+    var token = this.facadeService.getSessionToken();
+    var headers = new HttpHeaders({'Content-type': 'application/json', 'Authorization': `Bearer ${token}`});
+    return this.http.put<any>(`${environment.url_api}/maestros-edit/`, data, {headers: headers});
+  }
+
 }

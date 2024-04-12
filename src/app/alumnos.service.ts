@@ -131,4 +131,9 @@ export class AlumnosService {
     var headers = new HttpHeaders({'Content-type': 'application/json', 'Authorization': 'Bearer '+token});
     return this.http.get<any>(`${environment.url_api}/lista-alumnos/`, {headers: headers});
   }
+
+  //Servicio para obtener un alumno por ID
+  public getAlumnoByID(idUser: number){
+    return this.http.get<any>(`${environment.url_api}/alumnos/${idUser}`, httpOptions);
+  }
 }

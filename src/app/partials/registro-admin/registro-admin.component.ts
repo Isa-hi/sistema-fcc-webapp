@@ -1,6 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { AdministradoresService } from '../../services/administradores.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { FacadeService } from 'src/app/services/facade.service';
+import { Location } from '@angular/common';
 //Para poder usar jquery definir esto
 declare var $:any;
 
@@ -10,11 +12,16 @@ declare var $:any;
   styleUrls: ['./registro-admin.component.scss']
 })
 export class RegistroAdminComponent implements OnInit{
+  //Decoradores
   @Input() rol: string = "";
+  @Input() datos_user: any = {};
 
   public admin:any ={};
   public editar:boolean =false;
   public errors:any = {};
+  //Variables para atrapar el token y el id del usuario
+  public token: string = "";
+  public idUser: number = 0;
   //Para contraseñas
   public hide_1: boolean = false;
   public hide_2: boolean = false;
@@ -24,19 +31,30 @@ export class RegistroAdminComponent implements OnInit{
   constructor(
     //Traemos el servicio
     private administradoresService: AdministradoresService,
-    private router: Router
+    private router: Router,
+    private activatedRoute: ActivatedRoute,
+    private facadeService: FacadeService,
+    private location: Location
   ){}
 
   ngOnInit(): void {
-    //Definir el esquema a mi JSON
-    this.admin = this.administradoresService.esquemaAdmin();
-    this.admin.rol = this.rol;
-    console.log("Admin: ", this.admin);
-
+    //El primer if valida si existe un parametro en la URL
+    if(this.activatedRoute.snapshot.params['id']){
+      this.editar = true;
+      this.idUser = this.activatedRoute.snapshot.params['id'];
+      console.log("ID del usuario a editar: ", this.idUser);
+      this.admin = this.datos_user;
+    } else {
+      this.admin = this.administradoresService.esquemaAdmin();
+      this.admin.rol = this.rol;
+      this.token = this.facadeService.getSessionToken();
+    }
+    console.log("Datos del usuario: ", this.admin);
   }
 
-  public regresar(){
 
+  public regresar(){
+    this.location.back();
   }
 
   public registrar(){

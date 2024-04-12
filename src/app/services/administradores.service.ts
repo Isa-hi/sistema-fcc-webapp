@@ -15,7 +15,6 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class AdministradoresService {
-
   constructor(
     private http: HttpClient,
     private validatorService: ValidatorService,
@@ -112,4 +111,16 @@ export class AdministradoresService {
     return this.http.get<any>(`${environment.url_api}/lista-admins/`, {headers: headers});
   }
 
+  //Obtener admin por ID
+  public getAdminByID(idUser: number){
+    console.log("Sexo, playa");
+    return this.http.get<any>(`${environment.url_api}/admin/?id=${idUser}`, httpOptions);
+  }
+
+  //Post para actualizar admin
+  public editarAdmin(data: any): Observable <any>{
+    var token = this.facadeService.getSessionToken();
+    var headers = new HttpHeaders({'Content-type': 'application/json', 'Authorization': `Bearer ${token}`});
+    return this.http.put<any>(`${environment.url_api}/admins-edit/`, data, {headers: headers});
+  }
 }

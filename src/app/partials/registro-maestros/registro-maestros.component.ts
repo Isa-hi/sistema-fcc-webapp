@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { MaestrosService } from 'src/app/services/maestros.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { FacadeService } from 'src/app/services/facade.service';
 declare var $:any;
 
 @Component({
@@ -10,8 +11,9 @@ declare var $:any;
   styleUrls: ['./registro-maestros.component.scss']
 })
 export class RegistroMaestrosComponent implements OnInit{
-
+  //Decoradores sirven para pasar datos de un componente a otro
   @Input() rol: string = "";
+  @Input() datos_user: any = {};
   //Para contraseñas
   public hide_1: boolean = false;
   public hide_2: boolean = false;
@@ -25,6 +27,8 @@ export class RegistroMaestrosComponent implements OnInit{
   //Check
   public valoresCheckbox: any = [];
   public materias_json: any [] = [];
+  //Variables para atrapar el token
+  public token: string = "";
 
   //Para el select
   public areas: any[] = [
@@ -52,15 +56,24 @@ export class RegistroMaestrosComponent implements OnInit{
     private maestrosService: MaestrosService,
     private router: Router,
     public activatedRoute: ActivatedRoute,
+    private facadeService: FacadeService
   ){
 
   }
 
   ngOnInit() {
-    this.maestro = this.maestrosService.esquemaMaestro();
-    this.maestro.rol = this.rol;
-    //Imprimir datos en consola
-    console.log("Maestro: ", this.maestro);
+    //El primer if valida si existe un parametro en la URL
+    if(this.activatedRoute.snapshot.params['id']){
+      this.editar = true;
+      this.idUser = this.activatedRoute.snapshot.params['id'];
+      console.log("ID del maestro a editar: ", this.idUser);
+      this.maestro = this.datos_user;
+    } else {
+      this.maestro = this.maestrosService.esquemaMaestro();
+      this.maestro.rol = this.rol;
+      this.token = this.facadeService.getSessionToken();
+    }
+    console.log("Datos del maestro: ", this.maestro);
   }
 
   public regresar(){
@@ -149,8 +162,22 @@ export class RegistroMaestrosComponent implements OnInit{
     console.log("Array materias: ", this.maestro);
   }
 
+
+
   public changeSelect(event:any){
     console.log(event.value);
     this.maestro.area_investigacion = event.value;
+  }
+
+  public revisarSeleccion(nombre: string){
+    if(this.maestro.materias_json){
+      var busqueda = this.maestro.materias_json.find((materia) => materia==nombre);
+      if(busqueda != undefined){
+        return true;
+      } else {
+        return false;
+      } 
+    }
+    return false; // Add this line to handle the case when none of the conditions are met
   }
 }
