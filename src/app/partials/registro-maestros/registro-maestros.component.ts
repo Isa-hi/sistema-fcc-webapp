@@ -144,6 +144,25 @@ export class RegistroMaestrosComponent implements OnInit{
   }
 
   public actualizar(){
+    //Validar
+    this.errors = [];
+
+    this.errors = this.maestrosService.validarMaestro(this.maestro, this.editar);
+    if(!$.isEmptyObject(this.errors)){
+      return false;
+    }
+    console.log("Pasó la validación");
+
+    this.maestrosService.editarMaestro(this.maestro).subscribe(
+      (response) => {
+        alert("Maestro actualizado correctamente")
+        console.log("Maestro actualizado: ", response);
+        this.router.navigate(["home"]);
+      }, (error) => {
+        alert("No se pudo actualizar Maestro");
+      }
+    )
+    return false;
 
   }
 

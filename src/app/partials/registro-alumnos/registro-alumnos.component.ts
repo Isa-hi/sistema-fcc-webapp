@@ -124,7 +124,27 @@ export class RegistroAlumnosComponent implements OnInit{
   }
 
   public actualizar(){
+    //Validar
+    this.errors = [];
 
+    this.errors = this.alumnosService.validarAlumno(this.alumno, this.editar);
+    if(!$.isEmptyObject(this.errors)){
+      return false;
+    }
+    console.log("Pasó la validación");
+
+    this.alumnosService.editarAlumno(this.alumno).subscribe(
+      (response) => {
+        alert("Alumno actualizado correctamente")
+        console.log("Alumno actualizado: ", response);
+        this.router.navigate(["home"]);
+      }, (error) => {
+        alert("No se pudo actualizar Alumno");
+        console.log("Error: ", error);
+      }
+    )
+
+    return false;
   }
 
 }

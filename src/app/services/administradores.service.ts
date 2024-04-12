@@ -117,7 +117,7 @@ export class AdministradoresService {
     return this.http.get<any>(`${environment.url_api}/admin/?id=${idUser}`, httpOptions);
   }
 
-  //Post para actualizar admin
+  //Put para actualizar admin
   public editarAdmin(data: any): Observable <any>{
     var token = this.facadeService.getSessionToken();
     var headers = new HttpHeaders({'Content-type': 'application/json', 'Authorization': `Bearer ${token}`});

@@ -86,7 +86,26 @@ export class RegistroAdminComponent implements OnInit{
   }
 
   public actualizar(){
+    //Validar
+    this.errors = [];
 
+    this.errors = this.administradoresService.validarAdmin(this.admin, this.editar)
+    if(!$.isEmptyObject(this.errors)){
+      return false;
+    }
+    console.log("Pasó la validación");
+
+    this.administradoresService.editarAdmin(this.admin).subscribe(
+      (response) => {
+        alert("Admin actualizado correctamente")
+        console.log("Admin actualizado: ", response);
+        this.router.navigate(["home"]);
+      }, (error) => {
+        alert("No se pudo actualizar Admin");
+      }
+    )
+    
+    return false;
   }
 
   //Funciones para password

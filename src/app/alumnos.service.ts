@@ -137,11 +137,12 @@ export class AlumnosService {
     return this.http.get<any>(`${environment.url_api}/alumnos/?id=${idUser}`, httpOptions);
   }
 
-  //Post para actualizar alumno
+  //Put para actualizar alumno
   public editarAlumno(data: any): Observable <any>{
     var token = this.facadeService.getSessionToken();
-    var headers = new HttpHeaders({'Content-type': 'application/json', 'Authorization': 'Bearer '+token});
-    return this.http.put<any>(`${environment.url_api}/alumnos-edit/${data.id}/`, data, {headers: headers});
+    var headers = new HttpHeaders({'Content-type': 'application/json', 'Authorization': `Bearer ${token}`});
+    console.log("AlumnosService Datos a editar: ", data);
+    return this.http.put<any>(`${environment.url_api}/alumnos-edit/`, data, {headers: headers});
   }
 
 }
