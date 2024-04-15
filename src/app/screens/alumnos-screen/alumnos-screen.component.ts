@@ -1,8 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTable, MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { AlumnosService } from 'src/app/alumnos.service';
+import { EliminarUserModalComponent } from 'src/app/modals/eliminar-user-modal/eliminar-user-modal.component';
 import { FacadeService } from 'src/app/services/facade.service';
 
 @Component({
@@ -25,7 +27,8 @@ export class AlumnosScreenComponent implements OnInit{
   constructor(
     public facadeService: FacadeService,
     private alumnosService: AlumnosService,
-    private router: Router
+    private router: Router,
+    public dialog: MatDialog
   ) { }
 
   ngOnInit(): void {
@@ -99,9 +102,26 @@ export class AlumnosScreenComponent implements OnInit{
 
   //Función para eliminar
   public delete(idUser: number){
+    //Función que abre modal de confirmación
+    const dialogRef = this.dialog.open(EliminarUserModalComponent, {
+      data: {id: idUser, rol: 'alumno'},
+      height: '288px',
+      width: '328px',
+    });
 
+    //Logica para eliminar el alumno
+    dialogRef.afterClosed().subscribe(result => {
+      if(result.isDelete){
+        console.log("Alumno a eliminar: ", idUser);
+        //Recargar pagina
+        window.location.reload();
+      } else {
+        alert("No se elimino el alumno");
+      }
+    });
   }
 } //Fin de la clase
+
 
 //Interfaz para la tabla
 export interface DatosUsuario {

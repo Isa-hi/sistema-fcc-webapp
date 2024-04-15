@@ -1,7 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
+import { EliminarUserModalComponent } from 'src/app/modals/eliminar-user-modal/eliminar-user-modal.component';
 import { FacadeService } from 'src/app/services/facade.service';
 import { MaestrosService } from 'src/app/services/maestros.service';
 
@@ -25,7 +27,8 @@ export class MaestrosScreenComponent implements OnInit{
   constructor(
     public facadeService: FacadeService,
     private maestrosService: MaestrosService,
-    private router: Router
+    private router: Router,
+    public dialog: MatDialog
   ) { }
 
   ngOnInit(): void {
@@ -99,7 +102,23 @@ export class MaestrosScreenComponent implements OnInit{
 
   //Función para eliminar un maestro
   public delete(idUser: number){
+    //Función que abre el modal de confirmación
+    const dialogRef = this.dialog.open(EliminarUserModalComponent, {
+      data: {id: idUser, rol: 'maestro'},
+      height: '288px',
+      width: '328px',
+    });
 
+    // Logica para eliminar el maestro
+    dialogRef.afterClosed().subscribe(result => {
+      if(result.isDelete){
+        console.log("Maestro a eliminar: ", idUser);
+        //Recargar pagina
+        window.location.reload();
+      } else {
+        alert ("No se elimino el maestro");
+      }
+    });
   }
 
 
