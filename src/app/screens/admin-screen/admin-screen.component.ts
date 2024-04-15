@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import { hide } from '@popperjs/core';
+import { EliminarUserModalComponent } from 'src/app/modals/eliminar-user-modal/eliminar-user-modal.component';
 import { AdministradoresService } from 'src/app/services/administradores.service';
 import { FacadeService } from 'src/app/services/facade.service';
 
@@ -16,6 +19,7 @@ export class AdminScreenComponent implements OnInit{
     public facadeService: FacadeService,
     private administradoresService: AdministradoresService,
     private router: Router,
+    public dialog: MatDialog
 
   ) { }
 
@@ -42,6 +46,24 @@ export class AdminScreenComponent implements OnInit{
   }
 
   public delete(idUser: number){
+    //Función que abre el modal de confirmación
+    const dialogRef = this.dialog.open(EliminarUserModalComponent, {
+      data: {id: idUser, rol: 'administrador'},
+      height: '288px',
+      width: '328px',
+    });
+
+    // Logica para eliminar el administrador
+    // Qué hace el subscribe !!!
+    dialogRef.afterClosed().subscribe(result => {
+      if(result.isDelete){
+        console.log("Admin a eliminar: ", idUser);
+        //Recargar pagina
+        window.location.reload();
+      } else {
+        alert ("No se elimino el administrador");
+      }
+    });
 
   }
 
