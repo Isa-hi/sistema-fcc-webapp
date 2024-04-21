@@ -4,3 +4,58 @@
 mat-form-field {
     width: 100%;
 }
+.title-registrar {
+    font-size: 28px;
+    text-align: left;
+    font-family: Nexa-Bold;
+    letter-spacing: 2px;
+    color: #231F20;
+    text-transform: capitalize;
+    opacity: 1;
+}
+
+.btn {
+    width: 208px;
+    height: 48px;
+    //Fuente
+    text-align: center;
+    font-family: Nexa-Bold;
+    font-size: 16px;
+    font-weight: bold;
+    letter-spacing: 0px;
+    color: #FFFFFF;
+    opacity: 1;
+    border-radius: 8px;
+    margin: 0 20px;
+}
+
+.btn-primary {
+    background-color: #0092B8;
+    border-color: #0092B8;
+  }
+  
+.btn-primary:hover {
+    background-color: #017895;
+    border-color: #017895; 
+}
+.title-user {
+    font-size: 22px;
+}
+
+//Checkbox
+.d-checkbox-name{
+    font-family: Nexa;
+    font-size: 16px;
+ }
+
+ //Estilos para el checkbox
+ ::ng-deep .mdc-checkbox__background {
+    transform: scale(1.5);
+    background-color: #F6F4F5;
+    border: 1px solid #F6F4F5;
+  }
+  
+  ::ng-deep .mat-mdc-checkbox.mat-mdc-checkbox-checked .mdc-checkbox__background, .mdc-checkbox__ripple {
+    background-color: #0092B8 !important;
+    border-color: #0092B8 !important;
+  }
