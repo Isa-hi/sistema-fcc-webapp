@@ -47,8 +47,6 @@ export class NavbarComponent implements OnInit {
   public goRegistro(receivedRol: string){
     // ReceivedRol is passed from navbar.component.html as a string parameter
     this.router.navigate(["registro-usuarios/"+ receivedRol]);
-
-    // TODO: Cargar el formulario de registro pero con el rol seleccionado
   }
 
   public clickNavLink(link: string){
@@ -76,6 +74,10 @@ export class NavbarComponent implements OnInit {
       $("#principal").removeClass("active");
       $("#graficas").addClass("active");
     }
+  }
+
+  public goRegistroMaterias() {
+    this.router.navigate(["registro-materias"]);
   }
 
 }

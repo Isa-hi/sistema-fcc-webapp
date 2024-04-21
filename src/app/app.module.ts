@@ -38,7 +38,8 @@ import { AlumnosScreenComponent } from './screens/alumnos-screen/alumnos-screen.
 import { MaestrosScreenComponent } from './screens/maestros-screen/maestros-screen.component';
 import { EliminarUserModalComponent } from './modals/eliminar-user-modal/eliminar-user-modal.component';
 import { GraficasScreenComponent } from './screens/graficas-screen/graficas-screen.component';
-
+import { RegistroMateriasScreenComponent } from './screens/registro-materias-screen/registro-materias-screen.component';
+import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
 
 @NgModule({
   declarations: [
@@ -54,7 +55,8 @@ import { GraficasScreenComponent } from './screens/graficas-screen/graficas-scre
     AlumnosScreenComponent,
     MaestrosScreenComponent,
     EliminarUserModalComponent,
-    GraficasScreenComponent
+    GraficasScreenComponent,
+    RegistroMateriasScreenComponent,
   ],
   imports: [
     BrowserModule,
@@ -73,8 +75,8 @@ import { GraficasScreenComponent } from './screens/graficas-screen/graficas-scre
     MatDialogModule,
     MatSelectModule,
     MatCheckboxModule,
-    HttpClientModule
-
+    HttpClientModule,
+    NgxMaterialTimepickerModule
   ],
   providers: [Location],
   bootstrap: [AppComponent]
