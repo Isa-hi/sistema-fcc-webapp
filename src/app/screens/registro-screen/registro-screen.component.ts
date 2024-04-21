@@ -43,8 +43,15 @@ export class RegistroScreenComponent implements OnInit{
   ngOnInit(): void {
     //Obtenemos el rol del usuario
     if(this.activatedRoute.snapshot.params['rol'] != undefined){
+      this.editar = true;
       this.rol = this.activatedRoute.snapshot.params['rol'];
-      console.log("Rol: ", this.rol);
+      console.log("Rol testest: ", this.rol);
+      this.user.tipo_user = this.rol; // Set the user.tipo_usuario to the rol
+      if(this.rol == "maestro"){
+        this.isMaestro = true;
+      } else if (this.rol == "alumno"){
+        this.isAlumno = true;
+      }
     }
     //Obtener el id del usuario
     if(this.activatedRoute.snapshot.params['id'] != undefined){
@@ -106,6 +113,7 @@ export class RegistroScreenComponent implements OnInit{
   }
 
   public radioChange(event: MatRadioChange) {
+    console.log("event: ", event.value);
 
     if(event.value == "administrador"){
       this.isAdmin = true;

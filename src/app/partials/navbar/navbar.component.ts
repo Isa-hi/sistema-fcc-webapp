@@ -22,7 +22,7 @@ export class NavbarComponent implements OnInit {
   ){}
   ngOnInit(): void {
     this.rol = this.facadeService.getUserGroup();
-    console.log("Nav bar component ROL: ", this.rol);
+    //console.log("Nav bar component ROL: ", this.rol);
     this.token = this.facadeService.getSessionToken();
 
     if(this.activatedRoute.snapshot.params['id'] != undefined){
@@ -44,8 +44,11 @@ export class NavbarComponent implements OnInit {
     );
   }
 
-  public goRegistro(){
-    this.router.navigate(["registro-usuarios"]);
+  public goRegistro(receivedRol: string){
+    // ReceivedRol is passed from navbar.component.html as a string parameter
+    this.router.navigate(["registro-usuarios/"+ receivedRol]);
+
+    // TODO: Cargar el formulario de registro pero con el rol seleccionado
   }
 
   public clickNavLink(link: string){
