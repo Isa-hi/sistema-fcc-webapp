@@ -11,18 +11,18 @@
                 <mat-form-field class="mat-input" appearance="outline">
                     <mat-label>NRC</mat-label>
                     <!--Only numeric characters-->
-                    <input matInput name="nrc" placeholder="Escribe NRC" type="number">
+                    <input matInput [(ngModel)]="materia.nrc" name="nrc" placeholder="Escribe NRC" type="number">
                 </mat-form-field>
 
                 <mat-form-field class="mat-input" appearance="outline">
                     <mat-label>Nombre de la materia</mat-label>
-                    <input matInput name="nombre_materia" placeholder="Escribe nombre de la materia">
+                    <input matInput [(ngModel)]="materia.nombre_materia" name="nombre_materia" placeholder="Escribe nombre de la materia">
                 </mat-form-field>
 
                 <mat-form-field class="mat-input" appearance="outline">
                     <mat-label>Sección</mat-label>
                     <!--Solo caracteres alfanumericos-->
-                    <input matInput name="seccion" placeholder="Escribe sección" type="number">
+                    <input matInput  [(ngModel)]="materia.seccion" name="seccion" placeholder="Escribe sección" type="number">
                 </mat-form-field>
 
                 <div class="select-dias">
@@ -32,10 +32,10 @@
                         </div>
                     </div>
                     <div class="checkbox-group" *ngFor="let dia of dias; let i = index" >
-                        <mat-checkbox class="checkbox-item">
+                        <!-- I'm sending the day and its status (true or false)-->
+                        <mat-checkbox (change)="checkboxChange([$event.checked, dia.nombre])" class="checkbox-item">
                             <div class="d-checkbox-name">{{dia.nombre}}</div>
                         </mat-checkbox>
-                        <!-- ToDo: Revisar selección -->
                     </div>
                 </div>
 
@@ -44,14 +44,14 @@
                     <div class="col-6">
                         <mat-form-field class="mat-input" appearance="outline">
                             <mat-label>Horario de inicio</mat-label>
-                            <input matInput [ngxTimepicker]="picker1">
+                            <input matInput [(ngModel)]="materia.hora_inicio" [ngxTimepicker]="picker1">
                             <ngx-material-timepicker #picker1></ngx-material-timepicker>
                         </mat-form-field>
                     </div>
                     <div class="col-6">
                         <mat-form-field class="mat-input" appearance="outline">
                             <mat-label>Horario de fin</mat-label>
-                            <input matInput [ngxTimepicker]="picker2">
+                            <input matInput [(ngModel)]="materia.hora_fin" [ngxTimepicker]="picker2">
                             <ngx-material-timepicker #picker2></ngx-material-timepicker>
                         </mat-form-field>
                     </div>
@@ -59,12 +59,12 @@
 
                 <mat-form-field class="mat-input" appearance="outline">
                     <mat-label>Salón</mat-label>
-                    <input matInput name="salon" placeholder="Escribe salón">
+                    <input matInput [(ngModel)]="materia.salon" name="salon" placeholder="Escribe salón">
                 </mat-form-field>
 
                 <mat-form-field class="mat-input" appearance="outline">
                     <mat-label>Programa educativo</mat-label>
-                    <mat-select>
+                    <mat-select [(ngModel)]="materia.programa_educativo">
                         <mat-option *ngFor="let programa of programasEducativos; let i = index" [value]="programa.nombre">
                             {{programa.nombre}}
                         </mat-option>
