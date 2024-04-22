@@ -1,0 +1,63 @@
+.title-perfil{
+    margin-left: -3rem;
+    font-size: 32px;
+    text-align: left;
+    font-family: Nexa-Bold;
+    letter-spacing: 0px;
+    color: #231F20;
+    text-transform: capitalize;
+    opacity: 1;
+}
+.title-table{
+    font-size: 28px;
+    text-align: left;
+    font-family: Nexa-Bold;
+    letter-spacing: 0px;
+    color: #231F20;
+    text-transform: capitalize;
+    opacity: 1;
+}
+//Estilos de la tabla
+::ng-deep .mat-mdc-table{
+    table-layout: fixed!important;
+}
+
+.mat-mdc-header-cell {
+    border-bottom-color: #231F20;
+    font-family: Nexa-Bold!important;
+    font-size: 18px;
+    text-align: left;
+    letter-spacing: 0px;
+    color: #231F20;
+    opacity: 1;
+}
+
+.mat-mdc-cell {
+    text-align: left;
+    font-family: Nexa!important;
+    font-size: 15px!important;
+    letter-spacing: 0px!important;
+    color: #231F20!important;
+    opacity: 1!important;
+}
+
+//Botones
+.td-editar, .td-eliminar{
+    text-align: center;
+    font-size: 20px;
+    cursor: pointer;
+}
+.td-editar:hover, .td-eliminar:hover{
+    font-size: 25px!important;
+}
+
+//Editar
+.td-editar{
+    color: #0092B8!important;
+}
+
+//Eliminar
+.td-eliminar{
+    color: #E84150!important;
+}
+

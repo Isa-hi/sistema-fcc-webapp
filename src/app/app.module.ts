@@ -40,6 +40,7 @@ import { EliminarUserModalComponent } from './modals/eliminar-user-modal/elimina
 import { GraficasScreenComponent } from './screens/graficas-screen/graficas-screen.component';
 import { RegistroMateriasScreenComponent } from './screens/registro-materias-screen/registro-materias-screen.component';
 import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
+import { MateriasScreenComponent } from './screens/materias-screen/materias-screen.component';
 
 @NgModule({
   declarations: [
@@ -57,6 +58,7 @@ import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
     EliminarUserModalComponent,
     GraficasScreenComponent,
     RegistroMateriasScreenComponent,
+    MateriasScreenComponent,
   ],
   imports: [
     BrowserModule,

@@ -44,6 +44,8 @@ export class MaestrosScreenComponent implements OnInit{
       this.router.navigate(['']);
     }
 
+    console.log("data: ", this.dataSource);
+
     //Obtener maestros
     this.obtenerMaestros();
   }

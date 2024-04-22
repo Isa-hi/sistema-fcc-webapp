@@ -59,7 +59,7 @@ export class RegistroMateriasScreenComponent implements OnInit {
       this.materiasService.registrarMateria(this.materia).subscribe(
         (response) => {
           alert("Materia registrada correctamente");
-          console.log("Materia registrada /registro-materias-screen.component.ts: ", response);
+          console.log("Materia registrada: ", response);
           this.location.back();
         }, (error: any) => {
           alert("Error al registrar la materia /registro-materias-screen.component.ts");
