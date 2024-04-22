@@ -8,17 +8,21 @@
         </div>
         <div class="row d-flex justify-content-center">
             <div class="col-10 col-md-5 fluid-container">
+                <div *ngIf="errors.nrc" class="invalid-feedback">{{errors.nrc}}</div>
                 <mat-form-field class="mat-input" appearance="outline">
                     <mat-label>NRC</mat-label>
                     <!--Only numeric characters-->
                     <input matInput [(ngModel)]="materia.nrc" name="nrc" placeholder="Escribe NRC" type="number">
                 </mat-form-field>
 
+
+                <div *ngIf="errors.nombre_materia" class="invalid-feedback">{{errors.nombre_materia}}</div>
                 <mat-form-field class="mat-input" appearance="outline">
                     <mat-label>Nombre de la materia</mat-label>
                     <input matInput [(ngModel)]="materia.nombre_materia" name="nombre_materia" placeholder="Escribe nombre de la materia">
                 </mat-form-field>
 
+                <div *ngIf="errors.seccion" class="invalid-feedback">{{errors.seccion}}</div>
                 <mat-form-field class="mat-input" appearance="outline">
                     <mat-label>Sección</mat-label>
                     <!--Solo caracteres alfanumericos-->
@@ -29,6 +33,7 @@
                     <div class="row mt-3 mb-3">
                         <div class="form-group col-12">
                             <label class="title-user" for="tipo_usuario">Selecciona los días que se impartirá</label>
+                            <div *ngIf="errors.dias" class="invalid-feedback">{{errors.dias}}</div>
                         </div>
                     </div>
                     <div class="checkbox-group" *ngFor="let dia of dias; let i = index" >
@@ -42,6 +47,7 @@
                 <!--Date time picker-->
                 <div class="row mt-3">
                     <div class="col-6">
+                        <div *ngIf="errors.hora_inicio" class="invalid-feedback">{{errors.hora_inicio}}</div>
                         <mat-form-field class="mat-input" appearance="outline">
                             <mat-label>Horario de inicio</mat-label>
                             <input matInput [(ngModel)]="materia.hora_inicio" [ngxTimepicker]="picker1">
@@ -49,6 +55,7 @@
                         </mat-form-field>
                     </div>
                     <div class="col-6">
+                        <div *ngIf="errors.hora_fin" class="invalid-feedback">{{errors.hora_fin}}</div>
                         <mat-form-field class="mat-input" appearance="outline">
                             <mat-label>Horario de fin</mat-label>
                             <input matInput [(ngModel)]="materia.hora_fin" [ngxTimepicker]="picker2">
@@ -57,11 +64,13 @@
                     </div>
                 </div>
 
+                <div *ngIf="errors.salon" class="invalid-feedback">{{errors.salon}}</div>
                 <mat-form-field class="mat-input" appearance="outline">
                     <mat-label>Salón</mat-label>
                     <input matInput [(ngModel)]="materia.salon" name="salon" placeholder="Escribe salón">
                 </mat-form-field>
 
+                <div *ngIf="errors.programa_educativo" class="invalid-feedback">{{errors.programa_educativo}}</div>
                 <mat-form-field class="mat-input" appearance="outline">
                     <mat-label>Programa educativo</mat-label>
                     <mat-select [(ngModel)]="materia.programa_educativo">

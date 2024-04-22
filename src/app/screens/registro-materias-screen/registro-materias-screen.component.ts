@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { MateriasService } from 'src/app/services/materias.service';
+declare var $:any;
 
 
 @Component({
@@ -50,6 +51,14 @@ export class RegistroMateriasScreenComponent implements OnInit {
       this.errors = [];
       // Sends the materia data to the service to validate
       this.errors = this.materiasService.validarMateria(this.materia, this.editar);
+      if(!$.isEmptyObject(this.errors)){
+        console.log("Hay errores en el form");
+        return false;
+      }
+
+      //  ToDO: Send materia data to the service to register
+      //console.log("Materia registrada: ", this.materia);
+      return true;
     }
 
     public checkboxChange(event: any){
