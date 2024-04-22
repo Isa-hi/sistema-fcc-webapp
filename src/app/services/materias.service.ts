@@ -1,6 +1,14 @@
 import { Injectable } from '@angular/core';
 import { ValidatorService } from './tools/validator.service';
 import { ErrorsService } from './tools/errors.service';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { FacadeService } from './facade.service';
+import { environment } from 'src/environments/environment';
+import { Observable } from 'rxjs';
+
+const httpOptions = {
+  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+};
 
 @Injectable({
   providedIn: 'root'
@@ -10,6 +18,8 @@ export class MateriasService {
   constructor(
     private validatorService: ValidatorService,
     private errorService: ErrorsService,
+    private http: HttpClient,
+    private facadeService: FacadeService
 
   ) { }
 
@@ -61,4 +71,11 @@ export class MateriasService {
     //console.log("Error: ", error)
     return error;
   }
+
+  //Servicio para registrar una materia
+  public registrarMateria(data: any): Observable <any>{
+    console.log("Registrando materia... ", data);
+    return this.http.post<any>(`${environment.url_api}/materias/`, data, httpOptions);
+  }
+
 }

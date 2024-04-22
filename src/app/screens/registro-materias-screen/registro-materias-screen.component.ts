@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { MateriasService } from 'src/app/services/materias.service';
+import { Observable } from 'rxjs';
 declare var $:any;
 
 
@@ -31,8 +32,7 @@ export class RegistroMateriasScreenComponent implements OnInit {
   
     constructor(
       private location : Location,
-      private materiasService: MateriasService
-
+      private materiasService: MateriasService,
     ) { }
   
     ngOnInit(): void {
@@ -56,10 +56,22 @@ export class RegistroMateriasScreenComponent implements OnInit {
         return false;
       }
 
+      this.materiasService.registrarMateria(this.materia).subscribe(
+        (response) => {
+          alert("Materia registrada correctamente");
+          console.log("Materia registrada /registro-materias-screen.component.ts: ", response);
+          this.location.back();
+        }, (error: any) => {
+          alert("Error al registrar la materia /registro-materias-screen.component.ts");
+          console.log("Error al registrar la materia: ", error);
+        }
+      )
+      
       //  ToDO: Send materia data to the service to register
       //console.log("Materia registrada: ", this.materia);
       return true;
     }
+
 
     public checkboxChange(event: any){
       //Lógica para checkbox
