@@ -78,4 +78,11 @@ export class MateriasService {
     return this.http.post<any>(`${environment.url_api}/materias/`, data, httpOptions);
   }
 
+  //Servicio para obtener la lista de materias
+  public obtenerMaterias(): Observable <any>{
+    var token = this.facadeService.getSessionToken();
+    var headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.get<any>(`${environment.url_api}/lista-materias/`, {headers: headers});
+  }
+
 }

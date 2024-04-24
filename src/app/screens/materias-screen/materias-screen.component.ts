@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { FacadeService } from 'src/app/services/facade.service';
+import { MateriasService } from 'src/app/services/materias.service';
 
 @Component({
   selector: 'app-materias-screen',
@@ -11,35 +12,12 @@ export class MateriasScreenComponent implements OnInit {
   public name_user: string = '';
   public rol: string = '';
   public displayedColumns: string[];
-
-  
-
-  data = [
-    {
-      nrc: '1234',
-      nombre_materia: 'Math',
-      seccion: 'A',
-      dias: ['Monday', 'Wednesday'],
-      hora_inicio: '09:00',
-      hora_fin: '10:00',
-      salon: '101',
-      programa_educativo: 'Computer Science',
-    },
-    {
-      nrc: '5678',
-      nombre_materia: 'Physics',
-      seccion: 'B',
-      dias: ['Tuesday', 'Thursday'],
-      hora_inicio: '10:00',
-      hora_fin: '11:00',
-      salon: '102',
-      programa_educativo: 'Physics',
-    }// More objects for more rows...
-  ];
- dataSource = new MatTableDataSource(this.data);
+  public data: any[] = [];
+  public dataSource;
   
     constructor(
-      private faceService: FacadeService
+      private faceService: FacadeService,
+      private materiasService: MateriasService
     ) { }
   
     ngOnInit(): void {
@@ -52,8 +30,31 @@ export class MateriasScreenComponent implements OnInit {
         this.displayedColumns = ['nrc', 'nombre_materia', 'seccion', 'dias', 'hora_inicio', 'hora_fin', 'salon', 'programa_educativo'];
       }
 
+      this.obtenerListaMaterias();
+
       console.log("rol", this.rol, "data: ", this.dataSource);
 
     }
 
+    // Funciton that gets the list from the BD using the service
+    public obtenerListaMaterias(){
+      console.log("Obteniendo lista de materias...");
+      this.materiasService.obtenerMaterias().subscribe(
+        (response) => {
+          console.log("Lista de materias: ", response);
+          this.data = response.map(materia => {
+            // Replace single quotes with double quotes and parse the string into an array
+            if (typeof materia.dias === 'string') {
+              materia.dias = JSON.parse(materia.dias.replace(/'/g, '"'));
+            }
+            return materia;
+          });
+          this.dataSource = new MatTableDataSource(this.data);
+          //this.initPaginator();
+        },
+        (error) => {
+          console.log("Error al obtener materias: ", error);
+        }
+      );
+    }
 }
