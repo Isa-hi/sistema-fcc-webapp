@@ -85,4 +85,9 @@ export class MateriasService {
     return this.http.get<any>(`${environment.url_api}/lista-materias/`, {headers: headers});
   }
 
+  //Servicio para obtener una materia por ID
+  public obtenerMateriaByID(id: any): Observable <any>{
+    return this.http.get<any>(`${environment.url_api}/materias/?id=${id}`,httpOptions);
+  }
+
 }

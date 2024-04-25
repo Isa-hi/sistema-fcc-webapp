@@ -38,7 +38,7 @@
                     </div>
                     <div class="checkbox-group" *ngFor="let dia of dias; let i = index" >
                         <!-- I'm sending the day and its status (true or false)-->
-                        <mat-checkbox (change)="checkboxChange([$event.checked, dia.nombre])" class="checkbox-item">
+                        <mat-checkbox [checked]="materia.dias.includes(dia.nombre)" (change)="checkboxChange([$event.checked, dia.nombre])" class="checkbox-item">
                             <div class="d-checkbox-name">{{dia.nombre}}</div>
                         </mat-checkbox>
                     </div>

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { MateriasService } from 'src/app/services/materias.service';
 import { Observable } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
 declare var $:any;
 
 
@@ -33,11 +34,20 @@ export class RegistroMateriasScreenComponent implements OnInit {
     constructor(
       private location : Location,
       private materiasService: MateriasService,
+      private activatedRoute: ActivatedRoute
     ) { }
   
     ngOnInit(): void {
       // Inicialize materia 
       this.materia = this.materiasService.esquemaMateria();
+
+      // Get the materia id from the URL
+      if(this.activatedRoute.snapshot.params['id'] != undefined){
+        this.editar = true;
+        this.materia.id = this.activatedRoute.snapshot.params['id'];
+        console.log("ID de la materia a editar: ", this.materia.id);
+        this.obtenerMateriaByID();
+      }
     }
 
     public regresar(){
@@ -56,6 +66,7 @@ export class RegistroMateriasScreenComponent implements OnInit {
         return false;
       }
 
+      // Send materia data to the service to register
       this.materiasService.registrarMateria(this.materia).subscribe(
         (response) => {
           alert("Materia registrada correctamente");
@@ -66,9 +77,6 @@ export class RegistroMateriasScreenComponent implements OnInit {
           console.log("Error al registrar la materia: ", error);
         }
       )
-      
-      //  ToDO: Send materia data to the service to register
-      //console.log("Materia registrada: ", this.materia);
       return true;
     }
 
@@ -79,12 +87,28 @@ export class RegistroMateriasScreenComponent implements OnInit {
       if(event[0] == true){
         // Add day to the array
         this.materia.dias.push(event[1]);
-        //console.log("Dias: ", this.materia.dias);
       } else {
         // Remove day from the array
         let index = this.materia.dias.indexOf(event[1]);
         this.materia.dias.splice(index, 1);
-        //console.log("Dias: ", this.materia.dias);
       }
+    }
+
+    public obtenerMateriaByID(){
+      console.log("Obteniendo datos de la materia...", this.materia.id);
+      this.materiasService.obtenerMateriaByID(this.materia.id).subscribe(
+        (response) => {
+          console.log("Datos de la materia: ", response);
+          this.materia = response;
+          // Parse the string into an array
+          if (typeof this.materia.dias === 'string') {
+            this.materia.dias = JSON.parse(this.materia.dias.replace(/'/g, '"'));
+          }
+          console.log("Array de dias: ", this.materia.dias);
+        }, (error) => {
+          alert("Error al obtener los datos de la materia para editar");
+          console.log("Error: ", error);
+        }
+      )
     }
 }

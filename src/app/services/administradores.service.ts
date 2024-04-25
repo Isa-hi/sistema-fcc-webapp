@@ -113,7 +113,6 @@ export class AdministradoresService {
 
   //Obtener admin por ID
   public getAdminByID(idUser: number){
-    console.log("Sexo, playa");
     return this.http.get<any>(`${environment.url_api}/admin/?id=${idUser}`, httpOptions);
   }
 

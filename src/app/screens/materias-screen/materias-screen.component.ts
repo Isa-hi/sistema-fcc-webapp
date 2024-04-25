@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
+import { Router } from '@angular/router';
 import { FacadeService } from 'src/app/services/facade.service';
 import { MateriasService } from 'src/app/services/materias.service';
 
@@ -17,7 +18,8 @@ export class MateriasScreenComponent implements OnInit {
   
     constructor(
       private faceService: FacadeService,
-      private materiasService: MateriasService
+      private materiasService: MateriasService,
+      private router: Router
     ) { }
   
     ngOnInit(): void {
@@ -56,5 +58,10 @@ export class MateriasScreenComponent implements OnInit {
           console.log("Error al obtener materias: ", error);
         }
       );
+    }
+
+    // Function to edit a materia
+    public goEditarMateria(id: number){
+      this.router.navigate(['registro-materia/' + id]);
     }
 }
