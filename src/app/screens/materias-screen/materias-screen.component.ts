@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
+import { EliminarUserModalComponent } from 'src/app/modals/eliminar-user-modal/eliminar-user-modal.component';
 import { FacadeService } from 'src/app/services/facade.service';
 import { MateriasService } from 'src/app/services/materias.service';
 
@@ -19,7 +21,8 @@ export class MateriasScreenComponent implements OnInit {
     constructor(
       private faceService: FacadeService,
       private materiasService: MateriasService,
-      private router: Router
+      private router: Router,
+      public dialog: MatDialog
     ) { }
   
     ngOnInit(): void {
@@ -63,5 +66,28 @@ export class MateriasScreenComponent implements OnInit {
     // Function to edit a materia
     public goEditarMateria(id: number){
       this.router.navigate(['registro-materia/' + id]);
+    }
+
+    // Function to delete a materia
+    public EliminarMateria(id: number){
+
+      // Open the modal to confirm the delete
+      const dialogRef = this.dialog.open(EliminarUserModalComponent, {
+        width: '400px',
+        height: '328px',
+        data: {rol: 'materia', id: id}
+      });
+
+      dialogRef.afterClosed().subscribe(result => {
+        //Result returns true if the user wants to delete the materia
+        if(result.isDelete){
+          console.log("Materia a eliminar: ", id);
+          //Reload the page
+          window.location.reload();
+        } else {
+          alert ("No se elimino la materia");
+        }
+      });
+      
     }
 }

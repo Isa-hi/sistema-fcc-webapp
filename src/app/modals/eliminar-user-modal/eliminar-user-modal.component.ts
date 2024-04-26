@@ -63,6 +63,16 @@ export class EliminarUserModalComponent implements OnInit{
           this.dialogRef.close({isDelete: false});
         }
       )
+    } else if (this.rol == 'materia'){
+      this.materiasService.eliminarMateria(this.data.id).subscribe(
+        (response)=>{
+          console.log("Materia eliminada: ", response);
+          this.dialogRef.close({isDelete: true});
+        }, (error)=>{
+          alert("Error al eliminar la materia");
+          this.dialogRef.close({isDelete: false});
+        }
+      )
     }
   }
 
