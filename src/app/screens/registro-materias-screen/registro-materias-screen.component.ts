@@ -2,7 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { MateriasService } from 'src/app/services/materias.service';
 import { Observable } from 'rxjs';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
+import { EliminarUserModalComponent } from 'src/app/modals/eliminar-user-modal/eliminar-user-modal.component';
+import { EditarMateriaModalComponent } from 'src/app/modals/editar-materia-modal/editar-materia-modal.component';
 declare var $:any;
 
 
@@ -34,7 +37,9 @@ export class RegistroMateriasScreenComponent implements OnInit {
     constructor(
       private location : Location,
       private materiasService: MateriasService,
-      private activatedRoute: ActivatedRoute
+      private activatedRoute: ActivatedRoute,
+      private router: Router,
+      public dialog: MatDialog
     ) { }
   
     ngOnInit(): void {
@@ -54,9 +59,7 @@ export class RegistroMateriasScreenComponent implements OnInit {
       this.location.back();
     }
 
-    public registrar(){
-      //Lógica para registrar una materia
-
+    public registrar(){ //Lógica para registrar una materia
       //Validar los campos
       this.errors = [];
       // Sends the materia data to the service to validate
@@ -65,7 +68,6 @@ export class RegistroMateriasScreenComponent implements OnInit {
         console.log("Hay errores en el form");
         return false;
       }
-
       // Send materia data to the service to register
       this.materiasService.registrarMateria(this.materia).subscribe(
         (response) => {
@@ -78,6 +80,46 @@ export class RegistroMateriasScreenComponent implements OnInit {
         }
       )
       return true;
+    }
+
+    public actualizar(){ //Lógica para actualizar una materia
+
+      // Function que abre el modal de confirmación
+      const dialogRef = this.dialog.open(EditarMateriaModalComponent, {
+        data: {id: this.materia.id, rol: 'materia'},
+        height: '288px',
+        width: '328px',
+      });
+
+      dialogRef.afterClosed().subscribe(result => {
+        if(result.isEdit){
+          console.log("Materia a actualizar: ", this.materia.id);
+           //Validar los campos
+            this.errors = [];
+            // Sends the materia data to the service to validate
+            this.errors = this.materiasService.validarMateria(this.materia, this.editar);
+            if(!$.isEmptyObject(this.errors)){
+              console.log("Hay errores en el form");
+              return false;
+            }
+            console.log("Materia actualizada correctamente", this.materia);
+            // Send materia data to the service to update
+              this.materiasService.actualizarMateria(this.materia).subscribe(
+                (response) => {
+                  alert("Materia actualizada correctamente");
+                  console.log("Materia actualizada: ", response);
+                  this.location.back();
+                }, (error: any) => {
+                  alert("Error al actualizar la materia /registro-materias-screen.component.ts");
+                  console.log("Error al actualizar la materia: ", error);
+                }
+              )
+            return true;
+        } else {
+          alert ("No se actualizo la materia");
+        }
+        return false;
+      });
     }
 
 
@@ -111,4 +153,5 @@ export class RegistroMateriasScreenComponent implements OnInit {
         }
       )
     }
+
 }

@@ -90,4 +90,17 @@ export class MateriasService {
     return this.http.get<any>(`${environment.url_api}/materias/?id=${id}`,httpOptions);
   }
 
+  //Servicio para actualizar una materia
+  public actualizarMateria(data: any): Observable <any>{
+    console.log("Actualizando materia... ", data);
+    var headers = new HttpHeaders({'Content-type': 'application/json'})
+    return this.http.put<any>(`${environment.url_api}/materias-edit/`, data, {headers});
+  }
+
+  //Servicio para eliminar una materia
+  public eliminarMateria(id: any): Observable <any>{
+    console.log("Eliminando materia... ", id);
+    return this.http.delete<any>(`${environment.url_api}/materias-edit/?id=${id}`, httpOptions);
+  }
+
 }

@@ -1,0 +1,19 @@
+<div class="wrapper">
+    <div class="icon-close">
+        <button class="btn" (click)="cerrar_modal_editar()">
+            <i class="bi bi-x-lg"></i>
+        </button>
+    </div>
+    <div class="body-modal">
+        <h1 class="title-modal">Actualizar {{rol}}</h1>
+        <span class="descripcion">Estás a punto de actualizar esta {{rol}}. ¿Deseas continuar?</span>
+        <div class="buttons-modal">
+            <button class="btn-regresar" mat-button (click)="cerrar_modal_editar()">
+                Cancelar
+            </button>
+            <button class="btn-editar" mat-button (click)="editarMateria()">
+                Editar
+            </button> 
+        </div>
+    </div>
+</div>

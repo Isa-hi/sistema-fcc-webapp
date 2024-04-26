@@ -82,8 +82,8 @@
 
                 <div class="section-buttons d-flex justify-content-center">
                     <button class="btn btn-danger" (click)="regresar()">Cancelar</button>
-                    <button class="btn btn-primary" type="submit" (click)="registrar()">Registrar</button>
-                    <!-- <button class="btn btn-primary" type="submit" (click)="actualizar()">Actualizar</button> -->
+                    <button *ngIf="!editar" class="btn btn-primary" type="submit" (click)="registrar()">Registrar</button>
+                    <button *ngIf="editar" class="btn btn-primary" type="submit" (click)="actualizar()">Actualizar</button>
                 </div>
 
             </div>

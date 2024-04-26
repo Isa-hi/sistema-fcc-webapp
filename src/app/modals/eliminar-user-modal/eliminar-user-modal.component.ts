@@ -3,6 +3,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { AlumnosService } from 'src/app/alumnos.service';
 import { AdministradoresService } from 'src/app/services/administradores.service';
 import { MaestrosService } from 'src/app/services/maestros.service';
+import { MateriasService } from 'src/app/services/materias.service';
 
 @Component({
   selector: 'app-eliminar-user-modal',
@@ -16,6 +17,7 @@ export class EliminarUserModalComponent implements OnInit{
     private administradoresService: AdministradoresService,
     private maestrosService: MaestrosService,
     private alumnosService: AlumnosService,
+    private materiasService: MateriasService,
     private dialogRef: MatDialogRef<EliminarUserModalComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) { }
